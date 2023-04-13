@@ -31,7 +31,7 @@ export default {
 
 main {
   margin: 50px;
-  height: 60vh;
+  height: 100%;
 }
 
 h1 {

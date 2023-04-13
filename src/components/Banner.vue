@@ -1,7 +1,7 @@
 <template>
-  <div class="main-banner">
+  <section class="main-banner">
     <h1>Make your Burger</h1>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
