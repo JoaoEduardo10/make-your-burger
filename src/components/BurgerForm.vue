@@ -128,4 +128,10 @@ button:hover {
   background-color: transparent;
   color: #222;
 }
+
+@media (max-width: 416px) {
+  button {
+    width: 70%;
+  }
+}
 </style>
