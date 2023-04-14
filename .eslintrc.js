@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = {
   env: {
     browser: true,
@@ -8,9 +9,11 @@ module.exports = {
     "plugin:vue/vue3-essential",
     "plugin:@typescript-eslint/recommended",
     "plugin:vue/base",
+    "@typescript-eslint/parser",
   ],
   overrides: [],
-  parser: "vue-eslint-parser",
+  //   parser: "@typescript-eslint/parser",
+  parser: ["vue-eslint-parser", "@typescript-eslint/parser"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
@@ -21,8 +24,6 @@ module.exports = {
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: ["error", "always"],
-    "no-undef": "off",
     "vue/multi-word-component-names": "off",
-    "vue/no-reserved-component-names": "off",
   },
 };

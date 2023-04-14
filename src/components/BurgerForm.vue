@@ -2,7 +2,7 @@
   <section>
     <p>Component de messangem</p>
     <div>
-      <form>
+      <form @submit.prevent="createBurger">
         <div class="input-conteiner">
           <label for="name"> Nome do Cliente </label>
           <input
@@ -17,29 +17,37 @@
           <label for="bread"> Escolha o pão </label>
           <select name="bread" id="bread" v-model="bread">
             <option value="">Selecione o seu pâo</option>
-            <option value="">Integral</option>
+            <option v-for="bread in breads" :key="bread.id" :value="bread.tipo">
+              {{ bread.tipo }}
+            </option>
           </select>
         </div>
         <div class="input-conteiner">
           <label for="meat"> Escolha a carne do seu Burger </label>
           <select name="meat" id="meat" v-model="meat">
             <option value="">Selecione o tipo de carne</option>
-            <option value="">Maminha</option>
+            <option v-for="meat in meats" :key="meat.id" :value="meat.tipo">
+              {{ meat.tipo }}
+            </option>
           </select>
         </div>
         <div id="options-conteiner" class="input-conteiner">
           <label id="label-title" for="options">
             Selecione os opcionais:
           </label>
-          <div class="checkbox-conteiner">
+          <div
+            class="checkbox-conteiner"
+            v-for="options in optionsData"
+            :key="options.id"
+          >
             <input
               type="checkbox"
               name="options"
               id="options"
-              v-model="options"
-              value="salame"
+              v-model="option"
+              :value="options.tipo"
             />
-            <span>salame</span>
+            <span>{{ options.tipo }}</span>
           </div>
         </div>
 
@@ -52,16 +60,63 @@
 </template>
 
 <script lang="ts">
+import type {
+  IIngredientes,
+  IPropsBurgerForms,
+} from "../interfaces/interfaces-BurgerForms";
+
+const variablesBurgs: IPropsBurgerForms = {
+  name: "",
+  bread: "",
+  meat: "",
+  option: [],
+  breads: [],
+  meats: [],
+  optionsData: [],
+  status: "solicitado",
+  msg: "",
+};
+
 export default {
   name: "BurgerForm",
 
   data() {
     return {
-      name: "",
-      bread: "",
-      meat: "",
-      options: "",
+      ...variablesBurgs,
     };
+  },
+
+  methods: {
+    async getIngredientes() {
+      const response = await fetch("http://localhost:3000/ingredientes");
+      const data: IIngredientes = await response.json();
+
+      this.breads = data.paes;
+      this.meats = data.carnes;
+      this.optionsData = data.opcionais;
+    },
+
+    async createBurger() {
+      const data = {
+        name: this.name,
+        bread: this.bread,
+        meat: this.meat,
+        option: Array.from(this.option),
+        status: "Solicitado",
+      };
+
+      await fetch("http://localhost:3000/burgers", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      (this.name = ""), (this.meat = ""), (this.bread = ""), (this.option = []);
+    },
+  },
+
+  mounted() {
+    this.getIngredientes();
   },
 };
 </script>
