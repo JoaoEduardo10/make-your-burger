@@ -1,6 +1,8 @@
 <template>
-  <NaveBar :logo="logo_src" :alt="name_logo" />
-  <Footer />
+  <div class="conteiner-principal">
+    <NaveBar :logo="logo_src" :alt="name_logo" />
+    <Footer />
+  </div>
 </template>
 
 <script lang="ts">
@@ -27,6 +29,11 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.conteiner-principal {
+  display: flex;
+  flex-direction: column;
 }
 
 main {

@@ -20,5 +20,6 @@ footer {
   align-items: center;
   color: #fcba03;
   width: 100%;
+  bottom: 0;
 }
 </style>
