@@ -1,4 +1,6 @@
-export type TStatus = string[];
+import { ISubTypes } from "./interfaces-BurgerForms";
+
+export type TStatus = ISubTypes;
 
 export interface IBurgers {
   nome: string;
@@ -12,5 +14,6 @@ export interface IBurgers {
 export interface IPropsDeshboard {
   burgers: IBurgers[];
   burger_Id: number;
-  status: TStatus;
+  status: TStatus[];
+  msg: string;
 }
