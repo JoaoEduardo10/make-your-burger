@@ -105,10 +105,10 @@ export default {
 
     async createBurger() {
       const data = {
-        name: this.name,
-        bread: this.bread,
-        meat: this.meat,
-        option: Array.from(this.option),
+        nome: this.name,
+        pao: this.bread,
+        carne: this.meat,
+        opcionais: Array.from(this.option),
         status: "Solicitado",
       };
 
@@ -117,7 +117,7 @@ export default {
       await fetch("http://localhost:3000/burgers", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data }),
       });
       this.show = false;
 

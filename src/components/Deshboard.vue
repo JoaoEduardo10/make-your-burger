@@ -12,33 +12,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="burger-table-row">
-          <td class="number">1</td>
-          <td class="name">João</td>
-          <td class="bread">Pão de trigo</td>
-          <td class="meat">picanha</td>
+        <tr class="burger-table-row" v-for="burger in burgers" :key="burger.id">
+          <td class="number">{{ burger.id }}</td>
+          <td class="name">{{ burger.nome }}</td>
+          <td class="bread">{{ burger.pao }}</td>
+          <td class="meat">{{ burger.carne }}</td>
           <td class="options">
             <ul class="list-options">
-              <li>Salame</li>
-              <li>Tomate</li>
-            </ul>
-          </td>
-          <td class="select">
-            <select name="" id="">
-              <option value="">Selecione</option>
-            </select>
-            <button>Cancelar</button>
-          </td>
-        </tr>
-        <tr class="burger-table-row">
-          <td class="number">1</td>
-          <td class="name">João</td>
-          <td class="bread">Pão de trigo</td>
-          <td class="meat">picanha</td>
-          <td class="options">
-            <ul class="list-options">
-              <li>Salame</li>
-              <li>Tomate</li>
+              <li v-for="(option, index) in burger.opcionais" :key="index">
+                {{ option }}
+              </li>
             </ul>
           </td>
           <td class="select">
@@ -54,8 +37,38 @@
 </template>
 
 <script lang="ts">
+import type {
+  IBurgers,
+  IPropsDeshboard,
+} from "../interfaces/interfaces-Deshboard";
+
+const variablesDeshboard: IPropsDeshboard = {
+  burger_Id: 0,
+  burgers: [],
+  status: [],
+};
+
 export default {
   name: "Deshboard",
+  data() {
+    return {
+      ...variablesDeshboard,
+    };
+  },
+
+  methods: {
+    async getPedidos() {
+      const response = await fetch("http://localhost:3000/burgers");
+
+      const data: IBurgers[] = await response.json();
+
+      this.burgers = data;
+    },
+  },
+
+  mounted() {
+    this.getPedidos();
+  },
 };
 </script>
 
