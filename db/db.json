@@ -89,6 +89,18 @@
       ],
       "status": "Em produção",
       "id": 1
+    },
+    {
+      "nome": "João Eduardo",
+      "pao": "3 Queijos",
+      "carne": "Maminha",
+      "opcionais": [
+        "Tomate",
+        "Salame",
+        "Cheddar"
+      ],
+      "status": "Solicitado",
+      "id": 2
     }
   ]
 }
