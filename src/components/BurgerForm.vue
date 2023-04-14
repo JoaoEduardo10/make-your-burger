@@ -1,6 +1,6 @@
 <template>
   <section>
-    <p>Component de messangem</p>
+    <Message :msg="msg" v-show="msg" />
     <div>
       <form @submit.prevent="createBurger">
         <div class="input-conteiner">
@@ -64,6 +64,7 @@ import type {
   IIngredientes,
   IPropsBurgerForms,
 } from "../interfaces/interfaces-BurgerForms";
+import Message from "./Message.vue";
 
 const variablesBurgs: IPropsBurgerForms = {
   name: "",
@@ -79,7 +80,9 @@ const variablesBurgs: IPropsBurgerForms = {
 
 export default {
   name: "BurgerForm",
-
+  components: {
+    Message,
+  },
   data() {
     return {
       ...variablesBurgs,
@@ -111,7 +114,17 @@ export default {
         body: JSON.stringify(data),
       });
 
-      (this.name = ""), (this.meat = ""), (this.bread = ""), (this.option = []);
+      this.msg = "Pedido realizado com sucesso";
+
+      setTimeout(() => {
+        this.msg = "";
+      }, 3000);
+
+      this.name = "";
+      this.meat = "";
+      this.bread = "";
+      this.option = [];
+      ("");
     },
   },
 
