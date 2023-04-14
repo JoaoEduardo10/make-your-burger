@@ -20,3 +20,9 @@ export default {
   name: "Home",
 };
 </script>
+
+<style scoped>
+main {
+  position: relative;
+}
+</style>

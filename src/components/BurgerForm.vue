@@ -1,6 +1,7 @@
 <template>
   <section>
     <Message :msg="msg" v-show="msg" />
+    <Loading v-show="show" />
     <div>
       <form @submit.prevent="createBurger">
         <div class="input-conteiner">
@@ -65,6 +66,7 @@ import type {
   IPropsBurgerForms,
 } from "../interfaces/interfaces-BurgerForms";
 import Message from "./Message.vue";
+import Loading from "./Loading.vue";
 
 const variablesBurgs: IPropsBurgerForms = {
   name: "",
@@ -82,10 +84,12 @@ export default {
   name: "BurgerForm",
   components: {
     Message,
+    Loading,
   },
   data() {
     return {
       ...variablesBurgs,
+      show: false,
     };
   },
 
@@ -108,11 +112,14 @@ export default {
         status: "Solicitado",
       };
 
+      this.show = true;
+
       await fetch("http://localhost:3000/burgers", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(data),
       });
+      this.show = false;
 
       this.msg = "Pedido realizado com sucesso";
 
@@ -170,6 +177,7 @@ select {
   display: flex;
   align-items: flex-start;
   width: 50%;
+  height: 100%;
   margin-bottom: 20px;
 }
 
